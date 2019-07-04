@@ -11,12 +11,21 @@
  * <webots/differential_wheels.h>, etc.
  */
 #include <webots/robot.h>
+#include <webots/robot.h>
+#include <webots/position_sensor.h>
+#include <webots/keyboard.h>
+#include <webots/motor.h>
+#include <webots/distance_sensor.h>
+
+#include <stdio.h>
+#include <math.h>
 
 /*
  * You may want to add macros here.
  */
 #define TIME_STEP 64
-
+#define PI 3.141592
+#define OBSTACLE_DIST 120.0
 /*
  * This is the main program.
  * The arguments of the main function can be specified by the
