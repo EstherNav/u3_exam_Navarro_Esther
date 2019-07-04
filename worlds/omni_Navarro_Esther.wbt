@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.085098233208436 0.9898391213893456 0.11391577797641178 1.8135901798250997
-  position 1.9446128886358676 0.5892773614686222 -0.3101265865673998
+  orientation -0.9629316374229374 -0.26512290197828325 -0.049724324998882435 0.38472695682366675
+  position -0.1402708411720051 1.2173645345016584 5.193575127708064
 }
 TexturedBackground {
 }
@@ -749,9 +749,53 @@ Solid {
       appearance PBRAppearance {
       }
       geometry DEF G_BOX Box {
-        size 1 0.4 0.1
+        size 3 0.4 0.1
       }
     }
   ]
+  boundingObject USE G_BOX
+}
+Solid {
+  translation 0 0.04999999999999997 3.0499999999999905
+  children [
+    Shape {
+      appearance PBRAppearance {
+      }
+      geometry DEF G_BOX Box {
+        size 3 0.4 0.1
+      }
+    }
+  ]
+  name "solid(1)"
+  boundingObject USE G_BOX
+}
+Solid {
+  translation -1.6399999962599854 0.04999999999999997 1.650000007384137
+  rotation 0 1 0 1.5707963220000003
+  children [
+    Shape {
+      appearance PBRAppearance {
+      }
+      geometry DEF G_BOX Box {
+        size 3 0.4 0.1
+      }
+    }
+  ]
+  name "solid(2)"
+  boundingObject USE G_BOX
+}
+Solid {
+  translation 1.5800000037400161 0.04999999999999997 1.6500000228237066
+  rotation 0 1 0 1.5707963220000003
+  children [
+    Shape {
+      appearance PBRAppearance {
+      }
+      geometry DEF G_BOX Box {
+        size 3 0.4 0.1
+      }
+    }
+  ]
+  name "solid(3)"
   boundingObject USE G_BOX
 }
