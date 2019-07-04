@@ -31,6 +31,23 @@
  * The arguments of the main function can be specified by the
  * "controllerArgs" field of the Robot node
  */
+ 
+ enum {
+  GO,
+  TURNRIGHT,
+  TURNLEFT,
+  FREEWAY,
+  OBSTACLE,
+  AUTONOMUS,
+  MANUAL,
+  LEFT,
+  RIGTH
+};
+
+ 
+ 
+ 
+ 
 int main(int argc, char **argv)
 {
   /* necessary to initialize webots stuff */
