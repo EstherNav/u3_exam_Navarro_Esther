@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.12433435020221521 0.974519878384798 0.18668683936654826 1.957219012174185
-  position 1.5016707059074152 0.9853486201063942 -0.12999462710861853
+  orientation -0.008320047324484653 0.9996837091608708 0.02373306661351674 2.194472626437862
+  position 1.7154215858403699 0.3541956374414695 -0.7619090707607987
 }
 TexturedBackground {
 }
@@ -708,6 +708,27 @@ DEF OMNI_WHEELS Robot {
         }
       ]
       name "distance_right"
+      lookupTable [
+        0 0 0
+        0.02 0 0
+        5 1660 0
+      ]
+      resolution 1
+    }
+    DistanceSensor {
+      translation 0.1039 0.10999999999999999 0.0127
+      rotation 0 1 0 5.8
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.1803921568627451 0.20392156862745098 0.21176470588235294
+          }
+          geometry Box {
+            size 0.02 0.01 0.01
+          }
+        }
+      ]
+      name "distance_left"
       lookupTable [
         0 0 0
         0.02 0 0
