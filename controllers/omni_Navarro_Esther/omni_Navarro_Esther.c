@@ -54,8 +54,61 @@ int searchForObstacles(WbDeviceTag distance_sensor) {
   else
     return OBSTACLE;
 }
- 
- 
+ void fowardLinearly(WbDeviceTag *wheels, double velocity) {
+  wb_motor_set_velocity(wheels[0], -6);
+  wb_motor_set_velocity(wheels[1], 6);
+  wb_motor_set_velocity(wheels[2], 0);
+}
+
+void backwardLinearly(WbDeviceTag *wheels){
+  wb_motor_set_velocity(wheels[0], 6);
+  wb_motor_set_velocity(wheels[1], -6);
+  wb_motor_set_velocity(wheels[2], 0);
+}
+
+void rightLinearly(WbDeviceTag *wheels){
+  wb_motor_set_velocity(wheels[0], 6);
+  wb_motor_set_velocity(wheels[1], 0);
+  wb_motor_set_velocity(wheels[2],-6);
+}
+
+void leftlinearly(WbDeviceTag *wheels){
+  wb_motor_set_velocity(wheels[0],-6);
+  wb_motor_set_velocity(wheels[1], 0);
+  wb_motor_set_velocity(wheels[2], 6);
+}
+
+void wheelsTurnRight(WbDeviceTag *wheels){
+  wb_motor_set_velocity(wheels[0], -6);
+  wb_motor_set_velocity(wheels[1], -6);
+  wb_motor_set_velocity(wheels[2], -6);
+}
+
+void wheelsTurnLeft(WbDeviceTag *wheels){
+  wb_motor_set_velocity(wheels[0], 6);
+  wb_motor_set_velocity(wheels[1], 6);
+  wb_motor_set_velocity(wheels[2], 6);
+}
+
+void stopWheels(WbDeviceTag *wheels) {
+  wb_motor_set_velocity(wheels[0], 0);
+  wb_motor_set_velocity(wheels[1], 0);
+  wb_motor_set_velocity(wheels[2], 0);
+}
+
+double getAngleRobot(WbDeviceTag pos_sensor) {
+  printf("Angle calculation\n");
+  double angle, rotationAngleW1;
+
+  rotationAngleW1 = wb_position_sensor_get_value(pos_sensor);
+  angle = fabs(rotationAngleW1- straightLineAngle);
+  printf("Angle: %lf\n", angle);
+
+  return angle;
+}
+float clearAngleRobot() {
+  printf("Clearing angle\n"
+ }
  
 int main(int argc, char **argv)
 {
