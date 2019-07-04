@@ -44,7 +44,16 @@
   RIGTH
 };
 
- 
+ int mode = AUTONOMUS;
+double straightLineAngle;
+
+int searchForObstacles(WbDeviceTag distance_sensor) {
+  double distance_of_sensor = wb_distance_sensor_get_value(distance_sensor);
+  if (distance_of_sensor > OBSTACLE_DIST)
+    return FREEWAY;
+  else
+    return OBSTACLE;
+}
  
  
  
