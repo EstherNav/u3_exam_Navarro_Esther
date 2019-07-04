@@ -1,4 +1,4 @@
-build/release/omni_Navarro_Esther.o: omni_Navarro_Esther.c \
+build/release/u3_exam_Navarro_Esther.o: u3_exam_Navarro_Esther.c \
  /usr/local/webots/include/controller/c/webots/robot.h \
  /usr/local/webots/include/controller/c/webots/types.h \
  /usr/local/webots/include/controller/c/webots/nodes.h \

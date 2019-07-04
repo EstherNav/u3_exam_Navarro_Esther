@@ -39,10 +39,11 @@ enum {
   RIGHT
 };
 
-
+/*variables*/
 int mode = AUTONOMUS;
 double straightLineAngle;
 
+/*Auxiliar functions*/
 int searchForObstacles(WbDeviceTag distance_sensor) {
   double distance_of_sensor = wb_distance_sensor_get_value(distance_sensor);
   if (distance_of_sensor > OBSTACLE_DIST)
@@ -94,15 +95,14 @@ void stopWheels(WbDeviceTag *wheels) {
 }
 
 double getAngleRobot(WbDeviceTag pos_sensor) {
-  printf("Angle calculation\n");
   double angle, rotationAngleW1;
 
   rotationAngleW1 = wb_position_sensor_get_value(pos_sensor);
   angle = fabs(rotationAngleW1- straightLineAngle);
-  printf("Angle: %lf\n", angle);
 
   return angle;
 }
+
 float clearAngleRobot() {
   printf("Clearing angle\n");
 }
@@ -164,9 +164,9 @@ int main(int argc, char **argv)
       mode = RIGHT;
       straightLineAngle = wb_position_sensor_get_value(encoder);
     }
-    else if (keyboard == 'G'){
+    else if (keyboard == 'G')
       mode = AUTONOMUS;
-    }
+
     else if (keyboard == 'W')
       mode = MANUAL;
 
@@ -176,14 +176,14 @@ if (mode == AUTONOMUS){
   distance_right = searchForObstacles(dist_right);
 
     if (robot_state == GO) {
+
       if (distance_left== FREEWAY && distance_right == FREEWAY) {
         velocity = 8;
         fowardLinearly(wheels, velocity);
       } else if (distance_left== OBSTACLE && distance_right == FREEWAY) {
         robot_state = TURNRIGHT;
         stopWheels(wheels);
-      }
-     else if (distance_right == OBSTACLE && distance_left == FREEWAY) {
+      } else if (distance_right == OBSTACLE && distance_left == FREEWAY) {
         robot_state = TURNLEFT;
         stopWheels(wheels);
       }
@@ -192,14 +192,13 @@ if (mode == AUTONOMUS){
       wheelsTurnLeft(wheels);
       if (distance_left== FREEWAY) {
         robot_state = GO;
-    }
-  }
-    else if (robot_state == TURNLEFT){
-      wheelsTurnRight(wheels);
-      if (distance_left== FREEWAY) {
-        robot_state = GO;
-    }
-  }
+      }
+    } else if (robot_state == TURNLEFT){
+        wheelsTurnRight(wheels);
+        if (distance_left== FREEWAY) {
+          robot_state = GO;
+        }
+      }
 }
  else {
      if (keyboard == WB_KEYBOARD_UP){
