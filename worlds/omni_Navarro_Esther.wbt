@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.9629316374229374 -0.26512290197828325 -0.049724324998882435 0.38472695682366675
-  position -0.1402708411720051 1.2173645345016584 5.193575127708064
+  orientation 0.08112214949716391 -0.9254566386169678 -0.37006648983762763 3.5418980924328265
+  position -0.8132250920133623 3.089666673312841 -1.5584432265714572
 }
 TexturedBackground {
 }
@@ -12,7 +12,7 @@ TexturedBackgroundLight {
 Floor {
 }
 DEF OMNI_WHEELS Robot {
-  translation 0.1 0.06 0.4000000000000001
+  translation -0.56 0.06 0.8200000000000004
   children [
     DEF SOLID1 Solid {
       children [
@@ -742,11 +742,12 @@ DEF OMNI_WHEELS Robot {
   }
   controller "omni_Navarro_Esther"
 }
-Solid {
-  translation 0 0.04999999999999997 0
+DEF S_1 Solid {
+  translation -0.55 0.04999999999999997 0
   children [
     Shape {
       appearance PBRAppearance {
+        baseColor 0.7686274509803922 0.6274509803921569 0
       }
       geometry DEF G_BOX Box {
         size 3 0.4 0.1
@@ -755,11 +756,12 @@ Solid {
   ]
   boundingObject USE G_BOX
 }
-Solid {
+DEF S_2 Solid {
   translation 0 0.04999999999999997 3.0499999999999905
   children [
     Shape {
       appearance PBRAppearance {
+        baseColor 0.8 0 0
       }
       geometry DEF G_BOX Box {
         size 3 0.4 0.1
@@ -769,22 +771,38 @@ Solid {
   name "solid(1)"
   boundingObject USE G_BOX
 }
-Solid {
-  translation -1.6399999962599854 0.04999999999999997 1.650000007384137
+DEF S_3 Solid {
+  translation -3.5599999954928045 0.04999999999999997 1.4899999981779348
   rotation 0 1 0 1.5707963220000003
   children [
     Shape {
       appearance PBRAppearance {
       }
       geometry DEF G_BOX Box {
-        size 3 0.4 0.1
+        size 1 0.4 0.1
       }
     }
   ]
   name "solid(2)"
   boundingObject USE G_BOX
 }
-Solid {
+DEF S_3 Solid {
+  translation -2.5300000025413016 0.04999999999999997 2.9600000031166758
+  rotation 0 1 0 2.094395096
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.4588235294117647 0.3137254901960784 0.4823529411764706
+      }
+      geometry DEF G_BOX Box {
+        size 1 0.4 0.1
+      }
+    }
+  ]
+  name "solid(4)"
+  boundingObject USE G_BOX
+}
+DEF S_4 Solid {
   translation 1.5800000037400161 0.04999999999999997 1.6500000228237066
   rotation 0 1 0 1.5707963220000003
   children [

@@ -25,14 +25,9 @@
  */
 #define TIME_STEP 64
 #define PI 3.141592
-#define OBSTACLE_DIST 120.0
-/*
- * This is the main program.
- * The arguments of the main function can be specified by the
- * "controllerArgs" field of the Robot node
- */
- 
- enum {
+#define OBSTACLE_DIST 90.0
+
+enum {
   GO,
   TURNRIGHT,
   TURNLEFT,
@@ -41,10 +36,11 @@
   AUTONOMUS,
   MANUAL,
   LEFT,
-  RIGTH
+  RIGHT
 };
 
- int mode = AUTONOMUS;
+
+int mode = AUTONOMUS;
 double straightLineAngle;
 
 int searchForObstacles(WbDeviceTag distance_sensor) {
@@ -54,7 +50,8 @@ int searchForObstacles(WbDeviceTag distance_sensor) {
   else
     return OBSTACLE;
 }
- void fowardLinearly(WbDeviceTag *wheels, double velocity) {
+
+void fowardLinearly(WbDeviceTag *wheels, double velocity) {
   wb_motor_set_velocity(wheels[0], -6);
   wb_motor_set_velocity(wheels[1], 6);
   wb_motor_set_velocity(wheels[2], 0);
@@ -107,15 +104,15 @@ double getAngleRobot(WbDeviceTag pos_sensor) {
   return angle;
 }
 float clearAngleRobot() {
-  printf("Clearing angle\n")
- }
- 
+  printf("Clearing angle\n");
+}
+/*
+ * main
+ */
 int main(int argc, char **argv)
 {
   /* necessary to initialize webots stuff */
   wb_robot_init();
-  
-  
   wb_keyboard_enable(TIME_STEP);
 
    //Motor devices
@@ -242,19 +239,9 @@ if (mode == AUTONOMUS){
 }
 
   /* Enter your cleanup code here */
- wb_robot_cleanup();
-  
 
-  /*
-   * You should declare here WbDeviceTag variables for storing
-   * robot devices like this:
-   *  WbDeviceTag my_sensor = wb_robot_get_device("my_sensor");
-   *  WbDeviceTag my_actuator = wb_robot_get_device("my_actuator");
-   */
+  /* This is necessary to cleanup webots resources */
+  wb_robot_cleanup();
 
-  /* main loop
-   * Perform simulation steps of TIME_STEP milliseconds
-   * and leave the loop when the simulation is over
-   */
   return 0;
 }
