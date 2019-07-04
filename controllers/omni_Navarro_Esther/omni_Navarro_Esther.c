@@ -107,13 +107,143 @@ double getAngleRobot(WbDeviceTag pos_sensor) {
   return angle;
 }
 float clearAngleRobot() {
-  printf("Clearing angle\n"
+  printf("Clearing angle\n")
  }
  
 int main(int argc, char **argv)
 {
   /* necessary to initialize webots stuff */
   wb_robot_init();
+  
+  
+  wb_keyboard_enable(TIME_STEP);
+
+   //Motor devices
+   WbDeviceTag wheel1= wb_robot_get_device("wheel1");
+   WbDeviceTag wheel2= wb_robot_get_device("wheel2");
+   WbDeviceTag wheel3= wb_robot_get_device("wheel3");
+
+   WbDeviceTag wheels[3];
+   wheels[0] = wheel1;
+   wheels[1] = wheel2;
+   wheels[2] = wheel3;
+
+   wb_motor_set_position(wheel1, INFINITY);
+   wb_motor_set_position(wheel2, INFINITY);
+   wb_motor_set_position(wheel3, INFINITY);
+
+   float velocity;
+   int robot_state = GO;
+
+   //distance sensor devices
+   WbDeviceTag dist_right=wb_robot_get_device("distance_right");
+   wb_distance_sensor_enable(dist_right, TIME_STEP);
+
+   WbDeviceTag dist_left=wb_robot_get_device("distance_left");
+   wb_distance_sensor_enable(dist_left, TIME_STEP);
+
+   double distance_left;
+   double distance_right;
+
+  //encoder device
+   WbDeviceTag encoder = wb_robot_get_device("encoder1");
+   wb_position_sensor_enable(encoder, TIME_STEP);
+   float angle;
+
+   //keyboard variables
+   int keyboard;
+
+
+  /* main loop*/
+  while (wb_robot_step(TIME_STEP) != -1) {
+
+    keyboard = wb_keyboard_get_key();
+
+    if (keyboard == 'A'){
+      mode = LEFT;
+      straightLineAngle= wb_position_sensor_get_value(encoder);
+    }
+    else if (keyboard == 'S'){
+      mode = RIGHT;
+      straightLineAngle = wb_position_sensor_get_value(encoder);
+    }
+    else if (keyboard == 'G'){
+      mode = AUTONOMUS;
+    }
+    else if (keyboard == 'W')
+      mode = MANUAL;
+
+if (mode == AUTONOMUS){
+
+  distance_left = searchForObstacles(dist_left);
+  distance_right = searchForObstacles(dist_right);
+
+    if (robot_state == GO) {
+      if (distance_left== FREEWAY && distance_right == FREEWAY) {
+        velocity = 8;
+        fowardLinearly(wheels, velocity);
+      } else if (distance_left== OBSTACLE && distance_right == FREEWAY) {
+        robot_state = TURNRIGHT;
+        stopWheels(wheels);
+      }
+     else if (distance_right == OBSTACLE && distance_left == FREEWAY) {
+        robot_state = TURNLEFT;
+        stopWheels(wheels);
+      }
+    }
+    else if (robot_state == TURNRIGHT){
+      wheelsTurnLeft(wheels);
+      if (distance_left== FREEWAY) {
+        robot_state = GO;
+    }
+  }
+    else if (robot_state == TURNLEFT){
+      wheelsTurnRight(wheels);
+      if (distance_left== FREEWAY) {
+        robot_state = GO;
+    }
+  }
+}
+ else {
+     if (keyboard == WB_KEYBOARD_UP){
+       fowardLinearly(wheels, velocity);
+
+     } else if (keyboard == WB_KEYBOARD_DOWN){
+         backwardLinearly(wheels);
+         angle = wb_position_sensor_get_value(encoder);
+
+     } else if (keyboard == WB_KEYBOARD_RIGHT){
+         rightLinearly(wheels);
+         angle = wb_position_sensor_get_value(encoder);
+
+     } else if (keyboard == WB_KEYBOARD_LEFT){
+         leftlinearly(wheels);
+         angle = wb_position_sensor_get_value(encoder);
+
+     } else if (mode == RIGHT){
+         wheelsTurnLeft(wheels);
+         angle = getAngleRobot(encoder);
+         if (angle >= 0.4*PI) {
+           robot_state = GO;
+           stopWheels(wheels);
+         }
+     } else if (mode == LEFT){
+         wheelsTurnRight(wheels);
+         angle = getAngleRobot(encoder);
+         if (angle >= 0.4*PI) {
+           robot_state = GO;
+           stopWheels(wheels);
+         }
+     } else {
+         stopWheels(wheels);
+     }
+
+   }
+}
+
+  /* Enter your cleanup code here */
+ wb_robot_cleanup();
+  
 
   /*
    * You should declare here WbDeviceTag variables for storing
@@ -126,26 +256,5 @@ int main(int argc, char **argv)
    * Perform simulation steps of TIME_STEP milliseconds
    * and leave the loop when the simulation is over
    */
-  while (wb_robot_step(TIME_STEP) != -1) {
-
-    /*
-     * Read the sensors :
-     * Enter here functions to read sensor data, like:
-     *  double val = wb_distance_sensor_get_value(my_sensor);
-     */
-
-    /* Process sensor data here */
-
-    /*
-     * Enter here functions to send actuator commands, like:
-     * wb_differential_wheels_set_speed(100.0,100.0);
-     */
-  };
-
-  /* Enter your cleanup code here */
-
-  /* This is necessary to cleanup webots resources */
-  wb_robot_cleanup();
-
   return 0;
 }

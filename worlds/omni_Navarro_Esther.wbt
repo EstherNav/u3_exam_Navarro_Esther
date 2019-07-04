@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.008320047324484653 0.9996837091608708 0.02373306661351674 2.194472626437862
-  position 1.7154215858403699 0.3541956374414695 -0.7619090707607987
+  orientation -0.085098233208436 0.9898391213893456 0.11391577797641178 1.8135901798250997
+  position 1.9446128886358676 0.5892773614686222 -0.3101265865673998
 }
 TexturedBackground {
 }
@@ -741,4 +741,17 @@ DEF OMNI_WHEELS Robot {
   physics Physics {
   }
   controller "omni_Navarro_Esther"
+}
+Solid {
+  translation 0 0.04999999999999997 0
+  children [
+    Shape {
+      appearance PBRAppearance {
+      }
+      geometry DEF G_BOX Box {
+        size 1 0.4 0.1
+      }
+    }
+  ]
+  boundingObject USE G_BOX
 }
