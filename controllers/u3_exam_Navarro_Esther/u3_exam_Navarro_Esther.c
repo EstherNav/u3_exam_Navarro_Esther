@@ -151,7 +151,7 @@ int main(int argc, char **argv){
   /* main loop*/
   while(wb_robot_step(TIME_STEP) != -1) {
    keyboard = wb_keyboard_get_key();
-    if (keyboard == 'A'){
+    if(keyboard == 'A'){
       mode = LEFT;
       straightLineAngle= wb_position_sensor_get_value(encoder);
     }
