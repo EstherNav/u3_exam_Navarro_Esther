@@ -164,20 +164,20 @@ int main(int argc, char **argv) {
     else if(keyboard == 'W')
       mode = MANUAL;
       if(mode == AUTONOMUS) {
-  distance_left = searchForObstacles(dist_left);
-  distance_right = searchForObstacles(dist_right);
-       if(robot_state == GO) {
+       distance_left = searchForObstacles(dist_left);
+       distance_right = searchForObstacles(dist_right);
+      if(robot_state == GO) {
         if(distance_left== FREEWAY && distance_right == FREEWAY) {
         velocity = 8;
         fowardLinearly(wheels, velocity);
-        } 
+       } 
          else if(distance_left== OBSTACLE && distance_right == FREEWAY) {
-        robot_state = TURNRIGHT;
-        stopWheels(wheels);
+          robot_state = TURNRIGHT;
+          stopWheels(wheels);
          } 
          else if(distance_right == OBSTACLE && distance_left == FREEWAY) {
-        robot_state = TURNLEFT;
-        stopWheels(wheels);
+          robot_state = TURNLEFT;
+          stopWheels(wheels);
          }
       }
     else if(robot_state == TURNRIGHT) {
