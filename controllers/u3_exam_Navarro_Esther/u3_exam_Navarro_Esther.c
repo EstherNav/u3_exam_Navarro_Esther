@@ -47,7 +47,7 @@ double straightLineAngle;
 /*Auxiliar functions*/
   int searchForObstacles(WbDeviceTag distance_sensor) {
    double distance_of_sensor = wb_distance_sensor_get_value(distance_sensor);
-    if (distance_of_sensor > OBSTACLE_DIST)
+    if(distance_of_sensor > OBSTACLE_DIST)
     return FREEWAY;
     else
     return OBSTACLE;
@@ -149,89 +149,89 @@ int main(int argc, char **argv){
 
 
   /* main loop*/
-  while (wb_robot_step(TIME_STEP) != -1) {
+  while(wb_robot_step(TIME_STEP) != -1) {
    keyboard = wb_keyboard_get_key();
     if (keyboard == 'A'){
       mode = LEFT;
       straightLineAngle= wb_position_sensor_get_value(encoder);
     }
-    else if (keyboard == 'S'){
+    else if(keyboard == 'S'){
        mode = RIGHT;
        straightLineAngle = wb_position_sensor_get_value(encoder);
     }
-    else if (keyboard == 'G')
+    else if(keyboard == 'G')
       mode = AUTONOMUS;
-    else if (keyboard == 'W')
+    else if(keyboard == 'W')
       mode = MANUAL;
-      if (mode == AUTONOMUS){
+      if(mode == AUTONOMUS){
   distance_left = searchForObstacles(dist_left);
   distance_right = searchForObstacles(dist_right);
-       if (robot_state == GO) {
-        if (distance_left== FREEWAY && distance_right == FREEWAY) {
+       if(robot_state == GO) {
+        if(distance_left== FREEWAY && distance_right == FREEWAY) {
         velocity = 8;
         fowardLinearly(wheels, velocity);
       } 
-         else if (distance_left== OBSTACLE && distance_right == FREEWAY){
+         else if(distance_left== OBSTACLE && distance_right == FREEWAY){
         robot_state = TURNRIGHT;
         stopWheels(wheels);
       } 
-         else if (distance_right == OBSTACLE && distance_left == FREEWAY){
+         else if(distance_right == OBSTACLE && distance_left == FREEWAY){
         robot_state = TURNLEFT;
         stopWheels(wheels);
       }
     }
-    else if (robot_state == TURNRIGHT){
+    else if(robot_state == TURNRIGHT){
       wheelsTurnLeft(wheels);
       if (distance_left== FREEWAY) {
         robot_state = GO;
       }
     } 
-  else if (robot_state == TURNLEFT){
+  else if(robot_state == TURNLEFT){
         wheelsTurnRight(wheels);
-        if (distance_left== FREEWAY) {
+        if(distance_left== FREEWAY) {
           robot_state = GO;
         }
  }
 }
- else {
-     if (keyboard == WB_KEYBOARD_UP)
+ else{
+     if(keyboard == WB_KEYBOARD_UP)
      {
        fowardLinearly(wheels, velocity);
      } 
-   else if (keyboard == WB_KEYBOARD_DOWN)
+   else if(keyboard == WB_KEYBOARD_DOWN)
    {
          backwardLinearly(wheels);
          angle = wb_position_sensor_get_value(encoder);
    } 
-   else if (keyboard == WB_KEYBOARD_RIGHT){
+   else if(keyboard == WB_KEYBOARD_RIGHT){
          rightLinearly(wheels);
          angle = wb_position_sensor_get_value(encoder);
    } 
-   else if (keyboard == WB_KEYBOARD_LEFT){
+   else if(keyboard == WB_KEYBOARD_LEFT){
          leftlinearly(wheels);
          angle = wb_position_sensor_get_value(encoder);
    } 
-   else if (mode == RIGHT){
+   else if(mode == RIGHT){
          wheelsTurnLeft(wheels);
          angle = getAngleRobot(encoder);
          
-     if (angle >= 0.4*PI){
+     if(angle >= 0.4*PI){
            robot_state = GO;
            stopWheels(wheels);
       }
     } 
-   else if (mode == LEFT){
+   else if(mode == LEFT){
          wheelsTurnRight(wheels);
          angle = getAngleRobot(encoder);
          
-     if (angle >= 0.4*PI) 
+     if(angle >= 0.4*PI) 
      {
            robot_state = GO;
            stopWheels(wheels);
          
      }
    } 
-   else {
+   else{
          stopWheels(wheels);
    }
 
